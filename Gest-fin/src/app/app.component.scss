@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    //overflow: hidden; Evita rolagens desnecessárias
+}
+
+.left-container {
+    width: 70%;
+    height: 100vh; // Garante que ocupa toda a tela
+    display: flex;
+    flex-direction: column;
+}
+
+.top-div {
+    flex-grow: 1;
+}
+
+.main-left-div {
+    height: 80%;
+}
+
+.right-div {
+    width: 30%;
+    height: 100vh; // Faz a área da direita ocupar toda a altura
+   // background-color: black; // Garante que essa área fique preta
+    
+}

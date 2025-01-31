@@ -1,0 +1,35 @@
+<div class="filtro">
+    <form class="form">
+        <div class="form_name">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nome</mat-label>
+                <input matInput placeholder="Ex. Sálario" value="">
+              </mat-form-field>
+        </div>
+
+        <div class="form_date--picker">
+            <mat-form-field>
+                <mat-label>Selecione a Data:</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        </div>
+
+        <div class="form__tipo">
+            <mat-form-field>
+                <mat-label>Tipo</mat-label>
+                <mat-select>
+                  @for (tipo of tipos; track tipo) {
+                    <mat-option [value]="tipo.value">{{tipo.viewValue}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+        </div>
+
+        <div class="form__button">
+            <button mat-raised-button color="primary">Filtrar</button>
+        </div>
+    </form>     
+</div>

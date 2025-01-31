@@ -1,0 +1,9 @@
+.detalhes-gastos {
+    width: 100%;
+    height: 100%; // Faz o componente preencher todo o `right-div`
+    //background-color: black; // Mantém o fundo preto
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; // Mantém os itens no topo
+}
