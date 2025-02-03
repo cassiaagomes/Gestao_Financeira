@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IEntradasGastos } from '../../interfaces/entradasgastos/entradasgatos.interface';
 
 @Component({
   selector: 'app-detalhes-gastos',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './detalhes-gastos.component.scss'
 })
 export class DetalhesGastosComponent {
-
+  @Input({required: true}) registro: IEntradasGastos = { } as IEntradasGastos;
 }

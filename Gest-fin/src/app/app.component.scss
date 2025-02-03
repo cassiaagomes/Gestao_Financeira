@@ -2,15 +2,39 @@
     display: flex;
     height: 100vh;
     width: 100vw;
-    //overflow: hidden; Evita rolagens desnecessárias
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; 
+    padding: 10px; 
 }
 
 .left-container {
     width: 70%;
-    height: 100vh; // Garante que ocupa toda a tela
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    padding-top: 20px; 
 }
+
+.right-div {
+    width: 30%;
+    height: auto;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+
+.form-container {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
 
 .top-div {
     flex-grow: 1;
@@ -20,9 +44,5 @@
     height: 80%;
 }
 
-.right-div {
-    width: 30%;
-    height: 100vh; // Faz a área da direita ocupar toda a altura
-   // background-color: black; // Garante que essa área fique preta
-    
-}
+
+

@@ -4,11 +4,16 @@ import { DetalhesGastosComponent } from './detalhes-gastos/detalhes-gastos.compo
 import { FiltroComponent } from './filtro/filtro.component';
 import {FormsModule} from '@angular/forms';
 import { CommonModule } from "@angular/common";
+import { EntradasaidaListComponent } from './entradasaida-list/entradasaida-list.component';
+import { CadastroDespesasComponent } from './cadastro-despesas/cadastro-despesas.component';
 
 @NgModule({
     declarations: [
         DetalhesGastosComponent,
-        FiltroComponent
+        FiltroComponent,
+        EntradasaidaListComponent,
+        CadastroDespesasComponent,
+
     ],
     imports: [
         AngularMaterialModule,
@@ -18,7 +23,9 @@ import { CommonModule } from "@angular/common";
     exports: [
         DetalhesGastosComponent,
         FiltroComponent,
-        FormsModule
+        FormsModule,
+        CadastroDespesasComponent,
+        EntradasaidaListComponent
     ],
 
 })

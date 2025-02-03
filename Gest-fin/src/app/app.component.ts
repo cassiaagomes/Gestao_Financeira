@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IEntradasGastos } from './interfaces/entradasgastos/entradasgatos.interface';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  registroSelected: IEntradasGastos = { } as IEntradasGastos;	
+  showDetalhes: boolean = false;
 
+  onEntradaSelected(registro: IEntradasGastos) {
+    this.registroSelected = registro;
+    this.showDetalhes = true;
+  }
 }

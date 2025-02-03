@@ -1,0 +1,29 @@
+.form-container {
+  width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; 
+  margin-bottom: 20px;
+}
+
+.row mat-form-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+
+.row-descricao mat-form-field {
+  flex: 1;
+  min-width: 100px; 
+}
+
+
+
