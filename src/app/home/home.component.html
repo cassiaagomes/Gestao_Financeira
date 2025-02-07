@@ -1,0 +1,47 @@
+<div class="container">
+    <!-- Novo container para organizar os dois cards principais -->
+    <div class="cards-wrapper">
+        <!-- Card Bem-Vindo -->
+        <div class="card">
+            <p class="welcome">Bem-Vindo, <strong>José Faustão!</strong></p>
+            <div class="info-container">
+                <div class="info-box">
+                    <p>Receita Mensal:</p>
+                    <span class="positive">+3.853,10</span>
+                </div>
+                <div class="info-box">
+                    <p>Despesas:</p>
+                    <span class="negative">+500,00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Últimos Gastos -->
+        <div class="card">
+            <p class="title">Últimos <strong> Gastos</strong>:</p>
+            <table class="expense-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gasto of ultimosGastos">
+                        <td>{{ gasto.nome }}</td>
+                        <td>{{ gasto.tipo ? 'Entrada' : 'Saída' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <!-- Cards de Navegação -->
+    <div class="navigation-card-container">
+        <div class="navigation-card" (click)="goTo('cadastro')">
+            <p>📋 Cadastro de Despesas</p>
+        </div>
+        <div class="navigation-card" (click)="goTo('listagem')">
+            <p>📊 Listagem de Entradas e Saídas</p>
+        </div>
+    </div>
+</div>

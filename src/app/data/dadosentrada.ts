@@ -1,4 +1,4 @@
-import { IEntradasGastos } from "../interfaces/entradasgastos/entradasgatos.interface";
+import { IEntradasGastos } from '../interfaces/entradasgastos.interface';
 
 export const DadosEntrada: IEntradasGastos[] = [
     {

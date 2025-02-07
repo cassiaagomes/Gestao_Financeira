@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { IEntradasGastos } from './interfaces/entradasgastos.interface';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: false,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Gestao_Financeira';
+  registroSelected: IEntradasGastos = { } as IEntradasGastos;	
+  showDetalhes: boolean = false;
+
+  onEntradaSelected(registro: IEntradasGastos) {
+    this.registroSelected = registro;
+    this.showDetalhes = true;
+  }
 }
