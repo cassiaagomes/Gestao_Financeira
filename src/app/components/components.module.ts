@@ -7,6 +7,7 @@ import { CommonModule } from "@angular/common";
 import { EntradasaidaListComponent } from './entradasaida-list/entradasaida-list.component';
 import { CadastroDespesasComponent } from './cadastro-despesas/cadastro-despesas.component';
 
+
 @NgModule({
     declarations: [
         DetalhesGastosComponent,

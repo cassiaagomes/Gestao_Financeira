@@ -1,33 +1,45 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { IEntradasGastos } from '../interfaces/entradasgastos.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DadosEntradaService {
+  private apiUrl = 'http://localhost:3000/dados';
 
-  private localStorageKey = 'dadosEntrada'; 
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
-
-  getDadosEntrada(): IEntradasGastos[] {
-    const dados = localStorage.getItem(this.localStorageKey);
-    return dados ? JSON.parse(dados) : [];  
+ 
+  private gerarId(): string {
+    return Date.now().toString(36) + Math.random().toString(8).substring(2, 5);
   }
 
-  adicionarDespesa(despesa: IEntradasGastos): void {
-    const dadosEntrada = this.getDadosEntrada();  
-    dadosEntrada.push(despesa);  
-    localStorage.setItem(this.localStorageKey, JSON.stringify(dadosEntrada));
+  getDadosEntrada(): Observable<IEntradasGastos[]> {
+    return this.http.get<IEntradasGastos[]>(this.apiUrl);
   }
 
+  adicionarDespesa(despesa: Omit<IEntradasGastos, 'id'>): Observable<any> {
+    const novaDespesa: IEntradasGastos = {
+      ...despesa,
+      id: this.gerarId()
+    };
 
-  excluirDespesa(despesa: IEntradasGastos): void {
-    let dadosEntrada = this.getDadosEntrada();
-    dadosEntrada = dadosEntrada.filter(item => item !== despesa); 
-    localStorage.setItem(this.localStorageKey, JSON.stringify(dadosEntrada)); 
+    return this.http.post(this.apiUrl, novaDespesa);
   }
+
+  deleteRegistro(id: string): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    console.log('Excluindo registro com ID:', id, 'URL:', url); // Log para debug
+    return this.http.delete<void>(url);
+  }
+  
+  
 }
+
+
+
 
 
 
