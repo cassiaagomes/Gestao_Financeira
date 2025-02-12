@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import { CommonModule } from "@angular/common";
 import { EntradasaidaListComponent } from './entradasaida-list/entradasaida-list.component';
 import { CadastroDespesasComponent } from './cadastro-despesas/cadastro-despesas.component';
+import { EditarMovimentacoesComponent } from './editar-movimentacoes/editar-movimentacoes.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { CadastroDespesasComponent } from './cadastro-despesas/cadastro-despesas
         FiltroComponent,
         EntradasaidaListComponent,
         CadastroDespesasComponent,
+        EditarMovimentacoesComponent,
 
     ],
     imports: [
@@ -21,13 +23,14 @@ import { CadastroDespesasComponent } from './cadastro-despesas/cadastro-despesas
         FormsModule,
         CommonModule
     ],
-    exports: [
-        DetalhesGastosComponent,
-        FiltroComponent,
-        FormsModule,
-        CadastroDespesasComponent,
-        EntradasaidaListComponent
-    ],
+  exports: [
+    DetalhesGastosComponent,
+    FiltroComponent,
+    FormsModule,
+    CadastroDespesasComponent,
+    EntradasaidaListComponent,
+
+  ],
 
 })
 export class ComponentsModule { }

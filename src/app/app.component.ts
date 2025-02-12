@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IEntradasGastos } from './interfaces/entradasgastos.interface';
+import { Transaction } from './shared/model/transaction';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,10 @@ import { IEntradasGastos } from './interfaces/entradasgastos.interface';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  registroSelected: IEntradasGastos = { } as IEntradasGastos;	
+  registroSelected: Transaction= { } as Transaction;
   showDetalhes: boolean = false;
 
-  onEntradaSelected(registro: IEntradasGastos) {
+  onEntradaSelected(registro: Transaction) {
     this.registroSelected = registro;
     this.showDetalhes = true;
   }

@@ -1,0 +1,13 @@
+{
+  "transactions": [
+    {
+      "id": "m6vfdyl73iqabep4",
+      "nome": "Salario",
+      "valor": 3200,
+      "tipo": true,
+      "data": "2025-02-03T03:00:00.000Z",
+      "categoria": "Pagamento",
+      "descricao": "Salario"
+    }
+  ]
+}

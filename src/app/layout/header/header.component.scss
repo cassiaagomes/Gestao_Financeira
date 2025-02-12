@@ -1,0 +1,69 @@
+:root {
+  --background-color: #f9f9f9;
+  --text-color: #333;
+  --header-background: #e6e6e6;
+}
+
+[data-theme='dark'] {
+  --background-color: #1e1e1e;
+  --text-color: #f9f9f9;
+  --header-background: #333;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--header-background);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1976d2;
+  color: var(--text-color);
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+
+.theme-toggle:focus {
+  outline: none;
+}

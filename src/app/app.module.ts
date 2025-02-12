@@ -10,20 +10,22 @@ import { MatListModule } from '@angular/material/list';
 import { ComponentsModule } from './components/components.module';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { FormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
-import { DadosEntradaService } from './services/dadosentrada.service'; 
-import { HttpClientModule } from '@angular/common/http'; 
+import { HomeComponent } from './layout/home/home.component';
+import { TransactionService } from './shared/services/transaction.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './layout/header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComponentsModule, 
+    ComponentsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     RouterModule,
@@ -33,7 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatNativeDateModule,
     FormsModule
   ],
-  providers: [DadosEntradaService],
+  providers: [TransactionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

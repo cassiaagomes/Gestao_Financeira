@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IEntradasGastos } from '../../interfaces/entradasgastos.interface';
-import { DadosEntradaService } from '../../services/dadosentrada.service';
+import { Router } from '@angular/router';
+import { TransactionService } from '../../shared/services/transaction.service';
+import {Transaction} from "../../shared/model/transaction";
 
 @Component({
   selector: 'app-detalhes-gastos',
@@ -8,17 +9,20 @@ import { DadosEntradaService } from '../../services/dadosentrada.service';
   styleUrls: ['./detalhes-gastos.component.scss']
 })
 export class DetalhesGastosComponent {
-  @Input({ required: true }) registro: IEntradasGastos = {} as IEntradasGastos;
-  @Output() registroExcluido: EventEmitter<IEntradasGastos> = new EventEmitter<IEntradasGastos>();
+  @Input({ required: true }) registro: Transaction= {} as Transaction;
+  @Output() registroExcluido: EventEmitter<Transaction> = new EventEmitter<Transaction>();
 
-  constructor(private dadosEntradaService: DadosEntradaService) {}
+  constructor(private transactionService: TransactionService, private router: Router) {}
 
   onExcluirClick(): void {
-    console.log('Botão de exclusão clicado');
     this.registroExcluido.emit(this.registro);
-    console.log('Emitiu o evento de exclusão');
   }
-  
+
+  onEditarClick(): void {
+    if (this.registro && this.registro.id) {
+      this.router.navigate(['/editar-movimentacoes', this.registro.id]);
+    }
+  }
+
+
 }
-
-

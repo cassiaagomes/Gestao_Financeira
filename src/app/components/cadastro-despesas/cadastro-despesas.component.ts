@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IEntradasGastos } from '../../interfaces/entradasgastos.interface';
-import { DadosEntradaService } from '../../services/dadosentrada.service';
+import { Transaction } from '../../shared/model/transaction';
+import { TransactionService } from '../../shared/services/transaction.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,13 +10,13 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./cadastro-despesas.component.scss']
 })
 export class CadastroDespesasComponent {
-  despesa: IEntradasGastos = this.novaDespesa();
-  dataSource = new MatTableDataSource<IEntradasGastos>([]);
+  despesa: Transaction = this.novaDespesa();
+  dataSource = new MatTableDataSource<Transaction>([]);
   displayedColumns: string[] = ['nome', 'valor', 'tipo', 'dataRegistro'];
 
-  constructor(private dadosEntradaService: DadosEntradaService) {}
+  constructor(private transactionService: TransactionService) {}
 
-  novaDespesa(): IEntradasGastos {
+  novaDespesa(): Transaction {
     return {
       id: uuidv4(),
       nome: '',
@@ -30,9 +30,9 @@ export class CadastroDespesasComponent {
 
   onSubmit(): void {
     if (this.isValidForm()) {
-      this.despesa.id = this.generateId(); 
-  
-      this.dadosEntradaService.adicionarDespesa(this.despesa).subscribe({
+      this.despesa.id = this.generateId();
+
+      this.transactionService.adicionarDespesa(this.despesa).subscribe({
         next: () => {
           console.log('Despesa cadastrada com sucesso!');
           this.loadData();
@@ -46,22 +46,22 @@ export class CadastroDespesasComponent {
       console.log('Formulário inválido!');
     }
   }
-  
+
   generateId(): string {
     return Math.random().toString(36).substr(2, 9);
   }
-  
-  
+
+
   isValidForm(): boolean {
     return this.despesa.nome !== '' && this.despesa.valor > 0 && this.despesa.data !== '' && this.despesa.categoria !== '' && this.despesa.descricao !== '';
   }
 
   loadData(): void {
-    this.dadosEntradaService.getDadosEntrada().subscribe(dados => {
+    this.transactionService.getDadosEntrada().subscribe(dados => {
       this.dataSource.data = dados;
-    });    
+    });
   }
-  
+
   resetForm(): void {
     this.despesa = this.novaDespesa();
   }
