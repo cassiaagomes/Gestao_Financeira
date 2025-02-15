@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Transaction } from '../../shared/model/transaction';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,12 +9,16 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './cadastro-despesas.component.html',
   styleUrls: ['./cadastro-despesas.component.scss']
 })
-export class CadastroDespesasComponent {
+export class CadastroDespesasComponent implements OnInit {
   despesa: Transaction = this.novaDespesa();
   dataSource = new MatTableDataSource<Transaction>([]);
   displayedColumns: string[] = ['nome', 'valor', 'tipo', 'dataRegistro'];
 
   constructor(private transactionService: TransactionService) {}
+
+  ngOnInit(): void {
+    this.loadData();
+  }
 
   novaDespesa(): Transaction {
     return {
@@ -30,7 +34,7 @@ export class CadastroDespesasComponent {
 
   onSubmit(): void {
     if (this.isValidForm()) {
-      this.despesa.id = this.generateId();
+      this.despesa.id = uuidv4();
 
       this.transactionService.adicionarDespesa(this.despesa).subscribe({
         next: () => {
@@ -47,14 +51,10 @@ export class CadastroDespesasComponent {
     }
   }
 
-  generateId(): string {
-    return Math.random().toString(36).substr(2, 9);
-  }
-
-
   isValidForm(): boolean {
     return this.despesa.nome !== '' && this.despesa.valor > 0 && this.despesa.data !== '' && this.despesa.categoria !== '' && this.despesa.descricao !== '';
   }
+
 
   loadData(): void {
     this.transactionService.getDadosEntrada().subscribe(dados => {
@@ -64,10 +64,6 @@ export class CadastroDespesasComponent {
 
   resetForm(): void {
     this.despesa = this.novaDespesa();
-  }
-
-  ngOnInit(): void {
-    this.loadData();
   }
 }
 

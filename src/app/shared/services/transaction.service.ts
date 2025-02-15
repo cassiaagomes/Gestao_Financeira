@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Transaction} from "../model/transaction";
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +12,14 @@ export class TransactionService {
 
   constructor(private http: HttpClient) {}
 
-
-  private gerarId(): string {
-    return Date.now().toString(36) + Math.random().toString(8).substring(2, 5);
-  }
-
   getDadosEntrada(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.apiUrl);
   }
 
-  adicionarDespesa(despesa: Omit<Transaction, 'id'>): Observable<Transaction> {
+  adicionarDespesa(despesa:Transaction): Observable<Transaction> {
     const novaDespesa: Transaction = {
       ...despesa,
-      id: this.gerarId()
+      id: uuidv4()
     };
     return this.http.post<Transaction>(this.apiUrl, novaDespesa);
   }
@@ -31,18 +27,14 @@ export class TransactionService {
   deleteRegistro(transaction: Transaction): Observable<Transaction> {
     const url = `${this.apiUrl}/${transaction.id}`;
     return this.http.delete<Transaction>(url);
-
-
   }
 
   //métodos novos
   // getMovimentacaoById(id: string): Observable<Transaction> {
   //   return this.http.get<Transaction>(`${this.apiUrl}/${id}`);
   // }
-  
+
   atualizarMovimentacao(id: string, despesa: Transaction): Observable<Transaction> {
     return this.http.put<Transaction>(`${this.apiUrl}/${id}`, despesa);
   }
-  
-
 }
