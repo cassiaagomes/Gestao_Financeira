@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EChartsOption } from 'echarts';
 import { Router } from '@angular/router';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { Transaction } from '../../shared/model/transaction';
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
   ultimosGastos: Transaction[] = [];
   receitaMensal: number = 0;
   despesasMensais: number = 0;
+  chartOption: EChartsOption = {};
 
   constructor(private router: Router, private transactionService: TransactionService) {}
 
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
     this.transactionService.getDadosEntrada().subscribe(dados => {
       this.DadosEntrada = dados;
       this.processarDados();
+      this.atualizarGrafico();
     });
   }
 
@@ -58,6 +61,42 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/lancamentos']);
     }
   }
-  
-}
-
+  atualizarGrafico() {
+    this.chartOption = {
+      title: {
+        text: 'Entradas vs Saídas',
+        left: 'center',
+        top: '20px',
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'horizontal', 
+        left: 'center', 
+        bottom: '0', 
+        itemWidth: 20, 
+        itemHeight: 10,
+        padding: [10, 0], 
+      },
+      color: ['#1565c0', '#fb8c00'], 
+      series: [
+        {
+          name: 'Valores',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { name: 'Entradas', value: this.receitaMensal },
+            { name: 'Saídas', value: this.despesasMensais }
+          ],
+          label: {
+            show: true,
+            formatter: (params) => {
+              return `${params.name}: R$ ${(params.value as number ?? 0).toFixed(2).replace('.', ',')}`;
+            }
+          }
+        }
+      ]
+    };
+  }
+} 
