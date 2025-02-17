@@ -14,8 +14,7 @@ import { HomeComponent } from './layout/home/home.component';
 import { TransactionService } from './shared/services/transaction.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layout/header/header.component';
-import { NgxEchartsModule } from 'ngx-echarts';
-import * as echarts from 'echarts';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import * as echarts from 'echarts';
     AppRoutingModule,
     ComponentsModule,
     BrowserAnimationsModule,
-    NgxEchartsModule.forRoot({ echarts }),
     AngularMaterialModule,
     RouterModule,
     HttpClientModule,
@@ -41,3 +39,4 @@ import * as echarts from 'echarts';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
