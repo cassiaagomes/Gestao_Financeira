@@ -1,13 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Transaction} from "../../shared/model/transaction";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-detalhes-gastos',
-  templateUrl: './detalhes-gastos.component.html',
-  styleUrls: ['./detalhes-gastos.component.scss']
+  selector: 'app-transaction-detail',
+  templateUrl: './transaction-detail.component.html',
+  styleUrl: './transaction-detail.component.scss'
 })
-export class DetalhesGastosComponent {
+export class TransactionDetailComponent {
   @Input({ required: true }) registro: Transaction= {} as Transaction;
   @Output() registroExcluido: EventEmitter<Transaction> = new EventEmitter<Transaction>();
 
@@ -17,9 +17,11 @@ export class DetalhesGastosComponent {
     this.registroExcluido.emit(this.registro);
   }
 
+  /*
   onEditarClick(): void {
     if (this.registro && this.registro.id) {
       this.router.navigate(['/editar-movimentacoes', this.registro.id]);
     }
   }
+   */
 }

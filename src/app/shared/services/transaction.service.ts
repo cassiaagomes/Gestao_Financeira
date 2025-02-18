@@ -16,23 +16,18 @@ export class TransactionService {
     return this.http.get<Transaction[]>(this.apiUrl);
   }
 
-  adicionarDespesa(despesa:Transaction): Observable<Transaction> {
-    const novaDespesa: Transaction = {
-      ...despesa,
+  addTransaction(transaction:Transaction): Observable<Transaction> {
+    const newTransaction: Transaction = {
+      ...transaction,
       id: uuidv4()
     };
-    return this.http.post<Transaction>(this.apiUrl, novaDespesa);
+    return this.http.post<Transaction>(this.apiUrl, newTransaction);
   }
 
-  deleteRegistro(transaction: Transaction): Observable<Transaction> {
+  deleteTransaction(transaction: Transaction): Observable<Transaction> {
     const url = `${this.apiUrl}/${transaction.id}`;
     return this.http.delete<Transaction>(url);
   }
-
-  //métodos novos
-  // getMovimentacaoById(id: string): Observable<Transaction> {
-  //   return this.http.get<Transaction>(`${this.apiUrl}/${id}`);
-  // }
 
   atualizarMovimentacao(id: string, despesa: Transaction): Observable<Transaction> {
     return this.http.put<Transaction>(`${this.apiUrl}/${id}`, despesa);

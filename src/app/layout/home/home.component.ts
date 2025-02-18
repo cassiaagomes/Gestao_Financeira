@@ -11,7 +11,7 @@ import { Transaction } from '../../shared/model/transaction';
 })
 export class HomeComponent implements OnInit {
   DadosEntrada: Transaction []= [];
-  ultimosGastos: Transaction[] = [];
+  ultimasTransacoes: Transaction[] = [];
   receitaMensal: number = 0;
   despesasMensais: number = 0;
   chartOption: EChartsOption = {};
@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit {
   }
 
   processarDados() {
-    this.ultimosGastos = [...this.DadosEntrada]
-      .filter(dado => dado.data) 
-      .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()) 
-      .slice(0, 3); 
+    this.ultimasTransacoes = [...this.DadosEntrada]
+      .filter(dado => dado.data)
+      .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
+      .slice(0, 3);
 
     this.calcularReceitaDespesas();
   }
@@ -72,14 +72,14 @@ export class HomeComponent implements OnInit {
         trigger: 'item'
       },
       legend: {
-        orient: 'horizontal', 
-        left: 'center', 
-        bottom: '0', 
-        itemWidth: 20, 
+        orient: 'horizontal',
+        left: 'center',
+        bottom: '0',
+        itemWidth: 20,
         itemHeight: 10,
-        padding: [10, 0], 
+        padding: [10, 0],
       },
-      color: ['#1565c0', '#fb8c00'], 
+      color: ['#1565c0', '#fb8c00'],
       series: [
         {
           name: 'Valores',
@@ -99,4 +99,4 @@ export class HomeComponent implements OnInit {
       ]
     };
   }
-} 
+}

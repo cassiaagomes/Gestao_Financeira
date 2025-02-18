@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Transaction } from './shared/model/transaction';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +6,4 @@ import { Transaction } from './shared/model/transaction';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  registroSelected: Transaction= { } as Transaction;
-  showDetalhes: boolean = false;
-
-  onEntradaSelected(registro: Transaction) {
-    this.registroSelected = registro;
-    this.showDetalhes = true;
-  }
 }

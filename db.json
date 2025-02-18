@@ -17,6 +17,15 @@
       "data": "2025-02-17T03:00:00.000Z",
       "categoria": "Rémedios",
       "descricao": "Doente"
+    },
+    {
+      "id": "a0c9f96c-d573-4154-89d4-7b643672a2d2",
+      "nome": "Curso de Angular",
+      "valor": 2300,
+      "tipo": false,
+      "data": "2025-02-13T03:00:00.000Z",
+      "categoria": "Estudos",
+      "descricao": "Pweb"
     }
   ]
 }

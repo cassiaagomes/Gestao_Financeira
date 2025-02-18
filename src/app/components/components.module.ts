@@ -1,21 +1,17 @@
 import { NgModule } from "@angular/core";
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
-import { DetalhesGastosComponent } from './detalhes-gastos/detalhes-gastos.component';
-import { FiltroComponent } from './filtro/filtro.component';
 import {FormsModule} from '@angular/forms';
 import { CommonModule } from "@angular/common";
-import { EntradasaidaListComponent } from './entradasaida-list/entradasaida-list.component';
-import { CadastroDespesasComponent } from './cadastro-despesas/cadastro-despesas.component';
-import { EditarMovimentacoesComponent } from './editar-movimentacoes/editar-movimentacoes.component';
+import { TransactionMaintenanceComponent } from './transaction-maintenance/transaction-maintenance.component';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
 
 
 @NgModule({
     declarations: [
-        DetalhesGastosComponent,
-        FiltroComponent,
-        EntradasaidaListComponent,
-        CadastroDespesasComponent,
-        EditarMovimentacoesComponent,
+        TransactionMaintenanceComponent,
+        TransactionListComponent,
+        TransactionDetailComponent,
 
     ],
     imports: [
@@ -24,11 +20,10 @@ import { EditarMovimentacoesComponent } from './editar-movimentacoes/editar-movi
         CommonModule
     ],
   exports: [
-    DetalhesGastosComponent,
-    FiltroComponent,
     FormsModule,
-    CadastroDespesasComponent,
-    EntradasaidaListComponent,
+    TransactionMaintenanceComponent,
+    TransactionListComponent,
+    TransactionDetailComponent
 
   ],
 

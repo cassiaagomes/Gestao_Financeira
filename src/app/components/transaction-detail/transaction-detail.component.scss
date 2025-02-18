@@ -1,0 +1,38 @@
+.detalhes-gastos {
+  width: 100%;
+  height: 100%;
+  //background-color: black; // Mantém o fundo preto
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; // Espaço entre os botões
+  margin-top: 20px;
+}
+
+.excluir {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.editar {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+

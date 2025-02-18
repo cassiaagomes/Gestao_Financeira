@@ -4,17 +4,17 @@
       <div class="row">
         <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
-          <input matInput [(ngModel)]="despesa.nome" name="nome">
+          <input matInput [(ngModel)]="transaction.nome" name="nome">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Valor</mat-label>
-          <input matInput [(ngModel)]="despesa.valor" name="valor" type="number">
+          <input matInput [(ngModel)]="transaction.valor" name="valor" type="number">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <mat-select [(ngModel)]="despesa.tipo" name="tipo">
+          <mat-select [(ngModel)]="transaction.tipo" name="tipo">
             <mat-option [value]="true">Entrada</mat-option>
             <mat-option [value]="false">Saída</mat-option>
           </mat-select>
@@ -24,19 +24,19 @@
       <div class="row">
         <mat-form-field appearance="fill">
           <mat-label>Data</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="despesa.data" name="data">
+          <input matInput [matDatepicker]="picker" [(ngModel)]="transaction.data" name="data">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Categoria</mat-label>
-          <input matInput [(ngModel)]="despesa.categoria" name="categoria">
+          <input matInput [(ngModel)]="transaction.categoria" name="categoria">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Descrição</mat-label>
-          <textarea matInput [(ngModel)]="despesa.descricao" name="descricao"></textarea>
+          <textarea matInput [(ngModel)]="transaction.descricao" name="descricao"></textarea>
         </mat-form-field>
       </div>
 

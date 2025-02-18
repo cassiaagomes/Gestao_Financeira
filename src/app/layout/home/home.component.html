@@ -3,7 +3,7 @@
 <div class="container">
     <div class="cards-wrapper">
         <div class="card">
-            <p class="welcome">Bem-Vindo, <strong>José Faustão!</strong></p>
+            <p class="welcome">Bem-vindo, <strong>José Faustão!</strong></p>
             <div class="info-container">
                 <div class="info-box">
                     <p>Entradas:</p>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="card">
-            <p class="title">Últimas Informações<strong> Cadastradas</strong>:</p>
+            <p class="title">Últimas informações<strong> cadastradas</strong>:</p>
             <table class="expense-table">
                 <thead>
                     <tr>
@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let gasto of ultimosGastos">
+                    <tr *ngFor="let gasto of ultimasTransacoes">
                         <td>{{ gasto.nome }}</td>
                         <td>{{ gasto.tipo ? 'Entrada' : 'Saída' }}</td>
                     </tr>

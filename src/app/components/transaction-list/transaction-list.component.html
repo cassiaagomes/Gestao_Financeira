@@ -4,28 +4,28 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onEntradaSelected(element)">
+        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onSelectedTransaction(element)">
           {{ element.nome }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="valor">
         <th mat-header-cell *matHeaderCellDef> Valor (R$) </th>
-        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onEntradaSelected(element)">
+        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onSelectedTransaction(element)">
           {{ element.valor | currency:'BRL' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="tipo">
         <th mat-header-cell *matHeaderCellDef> Tipo </th>
-        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onEntradaSelected(element)">
+        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onSelectedTransaction(element)">
           {{ element.tipo ? 'Entrada' : 'Saída' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="dataRegistro">
         <th mat-header-cell *matHeaderCellDef> Data </th>
-        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onEntradaSelected(element)">
+        <td mat-cell *matCellDef="let element" class="entradasaida-list__item" (click)="onSelectedTransaction(element)">
           {{ element.data | date:'dd/MM/yyyy' }}
         </td>
       </ng-container>
@@ -39,9 +39,9 @@
     </table>
   </div>
 
-  <app-detalhes-gastos 
+  <app-transaction-detail
     *ngIf="registroSelecionado"
-    [registro]="registroSelecionado" 
-    (registroExcluido)="onRegistroExcluido($event)">
-  </app-detalhes-gastos>
+    [registro]="registroSelecionado"
+    (registroExcluido)="onDeleteTransaction($event)">
+  </app-transaction-detail>
 </div>
