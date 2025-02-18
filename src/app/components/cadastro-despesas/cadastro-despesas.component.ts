@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { Transaction } from '../../shared/model/transaction';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-cadastro-despesas',
@@ -22,7 +21,6 @@ export class CadastroDespesasComponent implements OnInit {
 
   novaDespesa(): Transaction {
     return {
-      id: uuidv4(),
       nome: '',
       valor: 0,
       tipo: true,
@@ -34,8 +32,6 @@ export class CadastroDespesasComponent implements OnInit {
 
   onSubmit(): void {
     if (this.isValidForm()) {
-      this.despesa.id = uuidv4();
-
       this.transactionService.adicionarDespesa(this.despesa).subscribe({
         next: () => {
           console.log('Despesa cadastrada com sucesso!');
