@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
 
   processarDados() {
     this.ultimosGastos = [...this.DadosEntrada]
-      .filter(dado => dado.data) // Filtrar apenas os que possuem data
-      .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()) // Ordenar por data (descendente)
-      .slice(0, 3); // Pegar os 3 mais recentes
+      .filter(dado => dado.data) 
+      .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()) 
+      .slice(0, 3); 
 
     this.calcularReceitaDespesas();
   }
