@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   receitaMensal: number = 0;
   despesasMensais: number = 0;
   chartOption: EChartsOption = {};
+  diasDoMes: string[] = []; 
 
   constructor(private router: Router, private transactionService: TransactionService) {}
 
@@ -25,6 +26,15 @@ export class HomeComponent implements OnInit {
       this.atualizarGrafico();
     });
   }
+
+  loadData() {
+    this.transactionService.getDadosEntrada().subscribe(dados => {
+      this.DadosEntrada = dados;
+      this.processarDados();
+      this.atualizarGrafico();
+    });
+  }
+  
 
   processarDados() {
     this.ultimasTransacoes = [...this.DadosEntrada]
@@ -62,41 +72,96 @@ export class HomeComponent implements OnInit {
     }
   }
   atualizarGrafico() {
-    this.chartOption = {
-      title: {
-        text: 'Entradas vs Saídas',
-        left: 'center',
-        top: '20px',
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        orient: 'horizontal',
-        left: 'center',
-        bottom: '0',
-        itemWidth: 20,
-        itemHeight: 10,
-        padding: [10, 0],
-      },
-      color: ['#1565c0', '#fb8c00'],
-      series: [
-        {
-          name: 'Valores',
-          type: 'pie',
-          radius: '50%',
-          data: [
-            { name: 'Entradas', value: this.receitaMensal },
-            { name: 'Saídas', value: this.despesasMensais }
-          ],
-          label: {
-            show: true,
-            formatter: (params) => {
-              return `${params.name}: R$ ${(params.value as number ?? 0).toFixed(2).replace('.', ',')}`;
+    const hoje = new Date();
+    const seteDiasAtras = new Date();
+    seteDiasAtras.setDate(hoje.getDate() - 6); 
+
+    const dadosPorDia: { [data: string]: { saldo: number; cor: string; tipo: string } } = {};
+
+    let saldoAcumulado = 0;
+    for (let i = 0; i < 7; i++) {
+        const data = new Date(seteDiasAtras);
+        data.setDate(seteDiasAtras.getDate() + i);
+        const dataFormatada = data.toISOString().split('T')[0];
+
+        dadosPorDia[dataFormatada] = { saldo: saldoAcumulado, cor: saldoAcumulado >= 0 ? '#FFFFFF' : '#FF0000', tipo: '' };
+    }
+
+    this.DadosEntrada
+        .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime())
+        .forEach(dado => {
+            const dataTransacao = new Date(dado.data).toISOString().split('T')[0];
+            if (dataTransacao in dadosPorDia) {
+                saldoAcumulado += dado.tipo ? dado.valor : -dado.valor;
+                dadosPorDia[dataTransacao] = { 
+                    saldo: saldoAcumulado, 
+                    cor: saldoAcumulado >= 0 ? '#FFFFFF' : '#FF0000',
+                    tipo: dado.tipo ? 'Entrada' : 'Saída' 
+                };
             }
-          }
-        }
-      ]
+        });
+
+    const datas = Object.keys(dadosPorDia);
+    const saldo = datas.map(data => dadosPorDia[data].saldo);
+    const cores = datas.map(data => dadosPorDia[data].cor);
+    const tipos = datas.map(data => dadosPorDia[data].tipo);
+
+    this.chartOption = {
+        title: {
+            text: 'Movimentação Semanal',
+            left: 'center',
+            top: '20px',
+            textStyle: { color: '#FFFFFF' }
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: (params: any) => {
+                const index = params[0].dataIndex;
+                const data = datas[index];
+                const valor = saldo[index];
+                const tipo = tipos[index] ? ` (${tipos[index]})` : ''; 
+                return `Data: ${data}<br/>Saldo: ${valor}${tipo}`;
+            },
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            borderRadius: 5,
+            padding: 10,
+            textStyle: { color: '#FFFFFF' }
+        },
+        grid: {
+            left: '5%',
+            right: '5%',
+            bottom: '10%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            data: datas,
+            axisLine: { lineStyle: { color: '#AAAAAA' } }
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: { lineStyle: { color: '#AAAAAA' } },
+            splitLine: { lineStyle: { color: '#333' } }
+        },
+        series: [
+            {
+                name: 'Saldo',
+                type: 'line',
+                smooth: true,
+                data: saldo,
+                lineStyle: { color: '#00FF00' },
+                itemStyle: {
+                    color: (params) => cores[params.dataIndex],
+                    borderWidth: 2,
+                    borderColor: '#000000'
+                },
+                symbol: 'circle',
+                symbolSize: 8,
+                areaStyle: { color: 'rgba(0, 255, 0, 0.2)' }
+            }
+        ]
     };
-  }
+}
+
+
 }
