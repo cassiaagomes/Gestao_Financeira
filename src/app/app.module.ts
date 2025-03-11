@@ -16,17 +16,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layout/header/header.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { LoginComponent } from './layout/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxEchartsModule.forRoot({ echarts }),
     AngularMaterialModule,

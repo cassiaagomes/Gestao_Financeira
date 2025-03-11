@@ -1,37 +1,91 @@
+html, body {
+  background-color: #121212 !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
 .form-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-top: 80px; // Empurra o formulário para baixo do header
-
-  form {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: space-between;
-
-      mat-form-field {
-        flex: 1;
-        min-width: 200px;
-      }
-    }
-
-    button {
-      width: 100%;
-      margin-top: 15px;
-    }
-  }
+  min-height: 100vh; 
+  background-color: #121212 !important;
 }
+
+
+.form-container form {
+  background: #1c1c1c !important;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  color: #fff;
+  border-radius: 10px;
+  border: 1px solid #333;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+
+.form-container .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+
+.form-container mat-form-field {
+  flex: 1;
+  min-width: 200px;
+  background: transparent !important; 
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background: #1c1c1c !important; 
+  border-radius: 5px;
+}
+
+.mat-form-field-label, 
+.mat-input-element, 
+.mat-select-value {
+  color: #bbb !important;
+}
+
+.mat-form-field-underline {
+  background-color: #bbb !important;
+}
+
+.mat-form-field-ripple {
+  background-color: #a3ff12 !important;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, color 0.3s;
+}
+
+button:hover {
+  background-color: #a3ff12; 
+  color: #121212;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
 
 
 

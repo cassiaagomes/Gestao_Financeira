@@ -1,47 +1,33 @@
-<div echarts [options]="chartOption" class="chart"></div>
+<div class="dashboard-container">
+  <div class="chart-container">
+    <div echarts [options]="chartOption" class="chart"></div>
+  </div>
 
-<div class="container">
-    <div class="cards-wrapper">
-        <div class="card">
-            <p class="welcome">Bem-vindo, <strong>José Faustão!</strong></p>
-            <div class="info-container">
-                <div class="info-box">
-                    <p>Entradas:</p>
-                    <span class="positive">+{{ receitaMensal | number:'1.2-2' }}</span>
-                </div>
-                <div class="info-box">
-                    <p>Saídas:</p>
-                    <span class="negative">-{{ despesasMensais | number:'1.2-2' }}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <p class="title">Últimas informações<strong> cadastradas</strong>:</p>
-            <table class="expense-table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Tipo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let gasto of ultimasTransacoes">
-                        <td>{{ gasto.nome }}</td>
-                        <td>{{ gasto.tipo ? 'Entrada' : 'Saída' }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="navigation-card-container">
-            <div class="navigation-card" (click)="goTo('cadastro')">
-                <p>📋 Cadastrar</p>
-            </div>
-            <div class="navigation-card" (click)="goTo('listagem')">
-                <p>📊 Lançamentos</p>
-            </div>
-        </div>
-    </div>
+  <div class="conteudo-container">
+    <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transacao of ultimasTransacoes">
+          <td>{{ transacao.data | date:'dd/MM/yyyy' }}</td>
+          <td>{{ transacao.descricao }}</td>
+          <td [ngClass]="{'entrada': transacao.tipo, 'saida': !transacao.tipo}">
+            {{ transacao.valor | currency:'BRL' }}
+          </td>
+          <td>{{ transacao.tipo ? 'Entrada' : 'Saída' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
 </div>
 
+
+  
