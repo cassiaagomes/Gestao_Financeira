@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Transaction} from "../../shared/model/transaction";
 import {MatTableDataSource} from "@angular/material/table";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {TransactionService} from "../../shared/services/transaction.service";
 
 @Component({
@@ -11,8 +12,14 @@ import {TransactionService} from "../../shared/services/transaction.service";
 export class TransactionMaintenanceComponent implements OnInit {
   transaction: Transaction = this.newTransaction();
   dataSource = new MatTableDataSource<Transaction>([]);
+  diasDoMes: string[] = [];
+  entradas: number[] = [];
+  saidas: number[] = [];
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(
+    private transactionService: TransactionService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -25,26 +32,33 @@ export class TransactionMaintenanceComponent implements OnInit {
       tipo: true,
       data: '',
       categoria: '',
-      descricao: ''
+      descricao: '',
+      description: '',
+      amount: 0
     };
   }
 
   onSubmit(): void {
     if (this.isValidForm()) {
-      this.transactionService.addTransaction(this.transaction).subscribe({
-        next: () => {
-          console.log('Transação cadastrada com sucesso!');
-          this.loadData();
-          this.resetForm();
-        },
-        error: (err) => {
-          console.error('Erro ao cadastrar a transação:', err);
-        }
+      this.transactionService.addTransaction(this.transaction).then(() => {
+        console.log('Transação cadastrada com sucesso!');
+        this.loadData();
+        this.resetForm();
+
+        this.snackBar.open('Transação cadastrada com sucesso!', '✖', {
+          duration: 3000, 
+          horizontalPosition: 'end', 
+          verticalPosition: 'top', 
+          panelClass: ['snackbar-success'] 
+        });
+      }).catch((err) => {
+        console.error('Erro ao cadastrar a transação:', err);
       });
     } else {
       console.log('Formulário inválido!');
     }
   }
+  
 
   isValidForm(): boolean {
     return this.transaction.nome !== '' &&
@@ -54,12 +68,46 @@ export class TransactionMaintenanceComponent implements OnInit {
 
 
   loadData(): void {
-    this.transactionService.getDadosEntrada().subscribe(dados => {
+    this.transactionService.getTransactions().then(dados => {
+
       this.dataSource.data = dados;
+  
+      this.processarDadosGrafico(dados);
     });
   }
+  
+  processarDadosGrafico(dados: Transaction[]): void {
+    const transacoesPorData = new Map<string, { entrada: number, saida: number }>();
+  
+    dados.forEach(transacao => {
+      const dataFormatada = new Date(transacao.data).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+  
+      if (!transacoesPorData.has(dataFormatada)) {
+        transacoesPorData.set(dataFormatada, { entrada: 0, saida: 0 });
+      }
+  
+      if (transacao.tipo) {
+        transacoesPorData.get(dataFormatada)!.entrada += transacao.valor;
+      } else {
+        transacoesPorData.get(dataFormatada)!.saida += transacao.valor;
+      }
+    });
+  
+    const ultimosSeteDias = Array.from(transacoesPorData.entries())
+      .sort((a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime()) 
+      .slice(-7); 
+  
+    this.diasDoMes = ultimosSeteDias.map(d => d[0]); 
+    this.entradas = ultimosSeteDias.map(d => d[1].entrada);
+    this.saidas = ultimosSeteDias.map(d => d[1].saida); 
+  
+  }
+  
+
+
 
   resetForm(): void {
     this.transaction = this.newTransaction();
   }
 }
+

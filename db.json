@@ -1,7 +1,28 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "nome": "teste",
+      "email": "teste@email.com",
+      "senha": "123456"
+    },
+    {
+      "id": "2",
+      "nome": "Cassia Gomes",
+      "email": "cg@email.com",
+      "senha": "senha123"
+    },
+    {
+      "id": "",
+      "nome": "teste",
+      "email": "teste123@email.com",
+      "senha": "12345678"
+    }
+  ],
   "transactions": [
     {
       "id": "710ba396-4b77-457b-a06e-d397a91b6fb8",
+      "userId": "1",
       "nome": "Salario",
       "valor": 3200,
       "tipo": true,
@@ -10,16 +31,8 @@
       "descricao": "Folha de pagamento"
     },
     {
-      "id": "a631e018-dce2-4d12-b4b8-6e98be622708",
-      "nome": "Farmácia",
-      "valor": 50,
-      "tipo": false,
-      "data": "2025-02-17T03:00:00.000Z",
-      "categoria": "Rémedios",
-      "descricao": "Doente"
-    },
-    {
       "id": "a0c9f96c-d573-4154-89d4-7b643672a2d2",
+      "userId": "2",
       "nome": "Curso de Angular",
       "valor": 2300,
       "tipo": false,

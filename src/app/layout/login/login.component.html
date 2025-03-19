@@ -1,0 +1,42 @@
+<div class="auth-container">
+    <div class="auth-card">
+      <!-- Esquerda: Formulário -->
+      <div class="auth-form">
+        <h2>{{ isLogin ? 'Bem-vindo de volta!' : 'Crie sua conta' }}</h2>
+        <p>{{ isLogin ? 'Faça login para continuar' : 'Preencha os campos abaixo para se cadastrar' }}</p>
+  
+        <form (ngSubmit)="onSubmit()">
+          <div *ngIf="!isLogin" class="input-group">
+            <label>Nome</label>
+            <input type="text" [(ngModel)]="nome" name="nome" required />
+          </div>
+  
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="email" name="email" required />
+          </div>
+  
+          <div class="input-group">
+            <label>Senha</label>
+            <input type="password" [(ngModel)]="senha" name="senha" required />
+          </div>
+  
+          <button type="submit" class="auth-button">
+            {{ isLogin ? 'Entrar' : 'Cadastrar' }}
+          </button>
+        </form>
+  
+        <p class="switch">
+          {{ isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?' }}
+          <a (click)="alternarModo()">{{ isLogin ? 'Cadastre-se' : 'Faça login' }}</a>
+        </p>
+      </div>
+  
+      <!-- Direita: Imagem -->
+      <div class="auth-image">
+        <img src="assets/imagem.jpg" alt="Auth Image" />
+      </div>
+    </div>
+  </div>
+  
+  

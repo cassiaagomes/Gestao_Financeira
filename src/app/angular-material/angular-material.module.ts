@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'; // Adicionado
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import {MatTableModule} from '@angular/material/table';
 
@@ -21,7 +22,8 @@ import {MatTableModule} from '@angular/material/table';
         MatNativeDateModule,
         MatSelectModule,
         MatButtonModule,
-        MatTableModule
+        MatTableModule,
+        MatPaginatorModule
     ],
     exports: [
         MatListModule,
@@ -32,7 +34,8 @@ import {MatTableModule} from '@angular/material/table';
         MatNativeDateModule,
         MatSelectModule,
         MatButtonModule,
-        MatTableModule
+        MatTableModule,
+        MatPaginatorModule
     ]
 })
 export class AngularMaterialModule {}

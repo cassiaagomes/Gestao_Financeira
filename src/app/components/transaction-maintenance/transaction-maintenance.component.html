@@ -31,7 +31,16 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Categoria</mat-label>
-          <input matInput [(ngModel)]="transaction.categoria" name="categoria">
+          <mat-select [(ngModel)]="transaction.categoria" name="categoria">
+            <mat-option value="Alimentação">Alimentação</mat-option>
+            <mat-option value="Moradia">Moradia</mat-option>
+            <mat-option value="Transporte">Transporte</mat-option>
+            <mat-option value="Saúde">Saúde</mat-option>
+            <mat-option value="Educação">Educação</mat-option>
+            <mat-option value="Lazer">Lazer</mat-option>
+            <mat-option value="Investimentos">Investimentos</mat-option>
+            <mat-option value="Outros">Outros</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">

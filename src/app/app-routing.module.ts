@@ -4,17 +4,17 @@ import { HomeComponent } from './layout/home/home.component';
 import {TransactionMaintenanceComponent} from "./components/transaction-maintenance/transaction-maintenance.component";
 import {TransactionListComponent} from "./components/transaction-list/transaction-list.component";
 import {TransactionDetailComponent} from "./components/transaction-detail/transaction-detail.component";
+import { LoginComponent } from './layout/login/login.component';
+
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'detalhes/:nome', component: TransactionDetailComponent },
+  { path: '', component: LoginComponent }, 
+  { path: 'home', component: HomeComponent},
   { path: 'manutencao', component: TransactionMaintenanceComponent },
   { path: 'listagem', component: TransactionListComponent },
-  { path: '', redirectTo: 'visaoGeral', pathMatch: 'full' },
-  { path: 'visaoGeral', component: HomeComponent },
-  { path: 'lancamentos', component: TransactionListComponent },
-  { path: 'metas', component: TransactionMaintenanceComponent }
+  { path: 'lancamentos', component: TransactionListComponent},
+  { path: 'metas', component: TransactionMaintenanceComponent},
 ];
 
 

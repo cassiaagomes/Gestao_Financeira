@@ -16,17 +16,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layout/header/header.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { LoginComponent } from './layout/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';  // Importando Firestore
+import { environment } from '../environments/environments';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxEchartsModule.forRoot({ echarts }),
     AngularMaterialModule,
@@ -35,9 +43,17 @@ import * as echarts from 'echarts';
     MatListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+
   ],
-  providers: [TransactionService],
+  providers: [
+    TransactionService,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
+  ],
+
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }
