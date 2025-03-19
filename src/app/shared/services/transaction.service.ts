@@ -4,6 +4,7 @@ import { Auth, getAuth } from '@angular/fire/auth';
 import { inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Transaction } from '../model/transaction';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -22,27 +23,42 @@ export class TransactionService {
       try {
         const transactionRef = collection(this.firestore, 'transactions');
         await addDoc(transactionRef, {
-          userId: userId, 
-          description: transaction.description,
-          amount: transaction.amount,
+          userId: userId,
+          nome: transaction.nome,
+          valor: transaction.valor,
+          tipo: transaction.tipo, 
+          data: transaction.data,
+          categoria: transaction.categoria,
+          descricao: transaction.descricao,
           createdAt: new Date(),
         });
-        alert('Transação realizada com sucesso!');
+        console.log('Transação realizada com sucesso!');
       } catch (error) {
         console.error('Erro ao adicionar transação:', error);
-        alert('Erro ao realizar transação!');
       }
     }
   }
+  
 
-  async getTransactions() {
+  async getTransactions(): Promise<Transaction[]> {
     const userId = this.authService.getUserId();
     if (userId) {
       try {
         const transactionRef = collection(this.firestore, 'transactions');
-        const q = query(transactionRef, where('userId', '==', userId));  
+        const q = query(transactionRef, where('userId', '==', userId));
         const snapshot = await getDocs(q);
-        const transactions: Transaction[] = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Transaction));
+        const transactions: Transaction[] = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            nome: data['nome'],
+            valor: data['valor'],
+            tipo: data['tipo'],
+            data: data['data'] instanceof Timestamp ? data['data'].toDate() : new Date(data['data']),
+            categoria: data['categoria'],
+            descricao: data['descricao'],
+          } as Transaction;
+        });
         return transactions;
       } catch (error) {
         console.error('Erro ao obter transações:', error);
@@ -51,6 +67,9 @@ export class TransactionService {
     }
     return [];
   }
+  
+  
+  
   async deleteTransaction(transaction: Transaction) {
     const userId = this.authService.getUserId();
     if (userId && transaction.id) {
@@ -76,8 +95,8 @@ export class TransactionService {
       try {
         const transactionRef = doc(this.firestore, 'transactions', transaction.id);
         await updateDoc(transactionRef, {
-          description: transaction.description,
-          amount: transaction.amount,
+          description: transaction.descricao,
+          amount: transaction.valor,
           updatedAt: new Date(),
         });
         alert('Transação atualizada com sucesso!');

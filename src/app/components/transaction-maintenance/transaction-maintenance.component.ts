@@ -30,11 +30,9 @@ export class TransactionMaintenanceComponent implements OnInit {
       nome: '',
       valor: 0,
       tipo: true,
-      data: '',
+      data: new Date(),
       categoria: '',
       descricao: '',
-      description: '',
-      amount: 0
     };
   }
 
@@ -62,7 +60,7 @@ export class TransactionMaintenanceComponent implements OnInit {
 
   isValidForm(): boolean {
     return this.transaction.nome !== '' &&
-      this.transaction.valor > 0 && this.transaction.data !== '' &&
+      this.transaction.valor > 0 && !isNaN(this.transaction.data.getTime()) &&
       this.transaction.categoria !== '' && this.transaction.descricao !== '';
   }
 

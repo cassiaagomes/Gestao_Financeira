@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Transaction } from "../../shared/model/transaction";
 import { TransactionService } from "../../shared/services/transaction.service";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-transaction-list',
@@ -18,7 +19,7 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -27,8 +28,13 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
   async loadData(): Promise<void> {
     try {
       const dados = await this.transactionService.getTransactions();
-      this.dataSource.data = dados;
-      
+
+      // Convertendo Timestamp do Firestore para Date
+      this.dataSource.data = dados.map(transacao => ({
+        ...transacao,
+        dataRegistro: this.convertTimestampToDate(transacao.data)
+      }));
+
       if (this.paginator) {
         this.dataSource.paginator = this.paginator;
       }
@@ -47,6 +53,10 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
 
   onSelectedTransaction(transaction: Transaction): void {
     this.registroSelecionado = transaction;
+
+    // Forçar atualização da tabela
+    this.dataSource.data = [...this.dataSource.data];
+    this.cdr.detectChanges();
   }
 
   async onDeleteTransaction(transaction: Transaction): Promise<void> {
@@ -55,12 +65,20 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
         await this.transactionService.deleteTransaction(transaction);
         console.log('Transação excluída com sucesso!');
         this.loadData();
-        this.registroSelecionado = null; 
+        this.registroSelecionado = null;
       } catch (err) {
         console.error('Erro ao excluir transação:', err);
       }
     } else {
       console.log('Erro: Nenhuma transação selecionada');
     }
+  }
+
+  // Função para converter Timestamp do Firestore para Date
+  private convertTimestampToDate(timestamp: any): Date {
+    if (timestamp && timestamp.seconds) {
+      return new Date(timestamp.seconds * 1000);
+    }
+    return new Date(); // Retorna data atual se houver erro
   }
 }
