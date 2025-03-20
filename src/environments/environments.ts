@@ -12,7 +12,7 @@ export const environment = {
     measurementId: "G-PKE4B9R1ER"
   },
 
-  // URL da API do seu backend Spring Boot
+  // URL da API do Spring Boot
   apiUrl: 'http://localhost:8080/dicas'  
 };
 
