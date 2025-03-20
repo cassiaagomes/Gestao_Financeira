@@ -29,7 +29,6 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
     try {
       const dados = await this.transactionService.getTransactions();
 
-      // Convertendo Timestamp do Firestore para Date
       this.dataSource.data = dados.map(transacao => ({
         ...transacao,
         dataRegistro: this.convertTimestampToDate(transacao.data)
@@ -54,7 +53,6 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
   onSelectedTransaction(transaction: Transaction): void {
     this.registroSelecionado = transaction;
 
-    // Forçar atualização da tabela
     this.dataSource.data = [...this.dataSource.data];
     this.cdr.detectChanges();
   }
@@ -74,11 +72,10 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Função para converter Timestamp do Firestore para Date
   private convertTimestampToDate(timestamp: any): Date {
     if (timestamp && timestamp.seconds) {
       return new Date(timestamp.seconds * 1000);
     }
-    return new Date(); // Retorna data atual se houver erro
+    return new Date(); 
   }
 }
