@@ -10,6 +10,9 @@ import {Router} from "@angular/router";
 export class TransactionDetailComponent {
   @Input({ required: true }) registro: Transaction= {} as Transaction;
   @Output() registroExcluido: EventEmitter<Transaction> = new EventEmitter<Transaction>();
+  ///////////////////////////////////////////////////////////////////////
+  @Output() fechar = new EventEmitter<void>();
+  
 
   constructor(private router: Router) {}
 
@@ -17,11 +20,13 @@ export class TransactionDetailComponent {
     this.registroExcluido.emit(this.registro);
   }
 
-  /*
   onEditarClick(): void {
     if (this.registro && this.registro.id) {
-      this.router.navigate(['/editar-movimentacoes', this.registro.id]);
+      this.router.navigate(['/transaction-maintenance', this.registro.id]);
     }
   }
-   */
+/////////////////////////////////////////////////////////////
+  fecharDetalhes(): void {
+    this.fechar.emit(); // Emite o evento para o componente pai
+  }
 }

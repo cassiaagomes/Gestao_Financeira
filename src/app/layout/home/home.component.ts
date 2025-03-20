@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-import { TransactionService } from '../../shared/services/transaction.service';
+import { TransactionFireService } from '../../shared/services/transaction-fire.service';
 import { Transaction } from '../../shared/model/transaction';
 import { UserService } from '../../shared/services/user.service';
 import { Subscription } from 'rxjs';
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private transactionService: TransactionService,
+    private transactionService: TransactionFireService,
     private authService: AuthService,
     private userService: UserService
   ) {}
@@ -52,13 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.atualizarGrafico();
     });
   }
-  
+
 
   processarDados() {
     this.ultimasTransacoes = [...this.DadosEntrada]
       .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
       .slice(0, 3);
-  
+
     this.calcularReceitaDespesas();
   }
 
@@ -70,12 +70,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.receitaMensal = this.DadosEntrada
         .filter(dado => dado.tipo)
         .reduce((total, item) => total + item.valor, 0);
-    
+
       this.despesasMensais = this.DadosEntrada
         .filter(dado => !dado.tipo)
         .reduce((total, item) => total + item.valor, 0);
     }
-    
+
   isWithinLast30Days(dataString: string): boolean {
     const data = new Date(dataString);
     return !isNaN(data.getTime()) && data >= new Date(new Date().setDate(new Date().getDate() - 30));

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, updateDoc } from '@angular/fire/firestore';  // Importando updateDoc corretamente
+import { Firestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, updateDoc } from '@angular/fire/firestore';
 import { Auth, getAuth } from '@angular/fire/auth';
 import { inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Transaction } from '../model/transaction';
 import { Timestamp } from '@angular/fire/firestore';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TransactionService {
+export class TransactionFireService {
   private firestore: Firestore = inject(Firestore);
   private firebaseAuth: Auth;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private messageService: MessageService) {
     this.firebaseAuth = getAuth();
   }
 
@@ -26,19 +27,18 @@ export class TransactionService {
           userId: userId,
           nome: transaction.nome,
           valor: transaction.valor,
-          tipo: transaction.tipo, 
+          tipo: transaction.tipo,
           data: transaction.data,
           categoria: transaction.categoria,
           descricao: transaction.descricao,
-          createdAt: new Date(),
         });
-        console.log('Transação realizada com sucesso!');
+        this.messageService.MensagemSucesso('Transação adicionada com sucesso!');
       } catch (error) {
+        this.messageService.MensagemErro('Erro ao adicionar transação.');
         console.error('Erro ao adicionar transação:', error);
       }
     }
   }
-  
 
   async getTransactions(): Promise<Transaction[]> {
     const userId = this.authService.getUserId();
@@ -61,32 +61,26 @@ export class TransactionService {
         });
         return transactions;
       } catch (error) {
+        this.messageService.MensagemErro('Erro ao obter transações.');
         console.error('Erro ao obter transações:', error);
         return [];
       }
     }
     return [];
   }
-  
-  
-  
+
   async deleteTransaction(transaction: Transaction) {
     const userId = this.authService.getUserId();
     if (userId && transaction.id) {
       try {
         const transactionRef = doc(this.firestore, 'transactions', transaction.id);
         await deleteDoc(transactionRef);
-        alert('Transação excluída com sucesso!');
+        this.messageService.MensagemSucesso('Transação excluída com sucesso!');
       } catch (error) {
+        this.messageService.MensagemErro('Erro ao excluir transação.');
         console.error('Erro ao excluir transação:', error);
-        alert('Erro ao excluir transação!');
       }
     }
-  }
-
-  isAuthenticated(): boolean {
-    const user = this.firebaseAuth.currentUser; 
-    return !!user; 
   }
 
   async updateTransaction(transaction: Transaction) {
@@ -95,16 +89,29 @@ export class TransactionService {
       try {
         const transactionRef = doc(this.firestore, 'transactions', transaction.id);
         await updateDoc(transactionRef, {
-          description: transaction.descricao,
-          amount: transaction.valor,
-          updatedAt: new Date(),
+          nome: transaction.nome,
+          valor: transaction.valor,
+          tipo: transaction.tipo,
+          data: transaction.data,
+          categoria: transaction.categoria,
+          descricao: transaction.descricao,
         });
-        alert('Transação atualizada com sucesso!');
+        this.messageService.MensagemSucesso('Transação atualizada com sucesso!');
       } catch (error) {
+        this.messageService.MensagemErro('Erro ao atualizar transação.');
         console.error('Erro ao atualizar transação:', error);
-        alert('Erro ao atualizar transação!');
       }
     }
   }
-}
 
+  isAuthenticated(): boolean {
+    const user = this.firebaseAuth.currentUser;
+    return !!user;
+  }
+
+  getTransactionById(id: string): Promise<Transaction | undefined> {
+    return this.getTransactions().then(transactions => {
+      return transactions.find(transaction => transaction.id === id);
+    });
+  }
+}

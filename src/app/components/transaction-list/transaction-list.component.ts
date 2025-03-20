@@ -3,7 +3,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Transaction } from "../../shared/model/transaction";
-import { TransactionService } from "../../shared/services/transaction.service";
+import { TransactionFireService } from "../../shared/services/transaction-fire.service";
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -15,11 +15,13 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Transaction>([]);
   displayedColumns: string[] = ['nome', 'valor', 'tipo', 'dataRegistro'];
   registroSelecionado: Transaction | null = null;
+  /////////////////////////////////////
+  mostrarDetalhes = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) {}
+  constructor(private transactionService: TransactionFireService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -50,11 +52,39 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  onSelectedTransaction(transaction: Transaction): void {
-    this.registroSelecionado = transaction;
+  // onSelectedTransaction(transaction: Transaction): void {
+  //   this.registroSelecionado = transaction;
 
-    this.dataSource.data = [...this.dataSource.data];
-    this.cdr.detectChanges();
+  //   this.dataSource.data = [...this.dataSource.data];
+  //   this.cdr.detectChanges();
+  // }
+///////////////////////////////////////////////////////////////
+// onSelectedTransaction(transaction: Transaction): void {
+//   if (this.registroSelecionado === transaction) {
+//     this.registroSelecionado = null; // Fecha a área de detalhes se clicar na mesma transação
+//   } else {
+//     this.registroSelecionado = transaction; // Abre a área de detalhes
+//   }
+
+//   // Forçar atualização da tabela
+//   this.dataSource.data = [...this.dataSource.data];
+//   this.cdr.detectChanges();
+// }
+onSelectedTransaction(transaction: Transaction): void {
+  this.registroSelecionado = transaction;
+}
+
+// fecharDetalhes(): void {
+//   this.registroSelecionado = null;
+// }
+/////////////////////
+fecharDetalhes(): void {
+  this.registroSelecionado = null;
+}
+
+/////////////////////////////////////////////////
+  onFecharDetalhes(): void {
+    this.mostrarDetalhes = false;
   }
 
   async onDeleteTransaction(transaction: Transaction): Promise<void> {
@@ -76,6 +106,6 @@ export class TransactionListComponent implements OnInit, AfterViewInit {
     if (timestamp && timestamp.seconds) {
       return new Date(timestamp.seconds * 1000);
     }
-    return new Date(); 
+    return new Date();
   }
 }

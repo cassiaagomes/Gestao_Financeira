@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'listagem', component: TransactionListComponent },
   { path: 'lancamentos', component: TransactionListComponent},
   { path: 'metas', component: TransactionMaintenanceComponent},
+  { path: 'transaction-maintenance/:id', component: TransactionMaintenanceComponent }
 ];
 
 

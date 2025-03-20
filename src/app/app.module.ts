@@ -11,7 +11,7 @@ import { ComponentsModule } from './components/components.module';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './layout/home/home.component';
-import { TransactionService } from './shared/services/transaction.service';
+import { TransactionFireService } from './shared/services/transaction-fire.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layout/header/header.component';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -20,7 +20,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';  // Importando Firestore
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environments';
 
 @NgModule({
@@ -47,13 +47,13 @@ import { environment } from '../environments/environments';
 
   ],
   providers: [
-    TransactionService,
+    TransactionFireService,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
   ],
 
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule { }

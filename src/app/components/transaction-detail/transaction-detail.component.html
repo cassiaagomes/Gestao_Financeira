@@ -1,4 +1,6 @@
 <div class="detalhes-gastos">
+  <!--  -->
+  <button class="close-button" (click)="fecharDetalhes()">x</button>
   <mat-list>
     <mat-list-item class="u-text-align-center">
       <span class="mat-h2">Detalhes</span>
@@ -27,7 +29,7 @@
 
     <!-- Data -->
     <mat-list-item>
-      <span class="mat-h2">Data: </span><span class="mat-h3">{{registro.data}}</span>
+      <span class="mat-h2">Data: </span><span class="mat-h3">{{ registro.data | date:'dd/MM/yyyy' }}</span>
     </mat-list-item>
     <mat-divider></mat-divider>
 
@@ -47,7 +49,7 @@
 
   <div class="button-container">
     <button mat-button class="excluir" (click)="onExcluirClick()">Excluir</button>
-    <button mat-button class="editar" >Editar</button>
+    <button mat-button class="editar" (click)="onEditarClick()">Editar</button>
   </div>
 
 
