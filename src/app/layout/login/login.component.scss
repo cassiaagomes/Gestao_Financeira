@@ -96,3 +96,49 @@
     height: 100%;
     object-fit: cover; 
 }
+
+.dica-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #2c2c2c;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    max-width: 350px;
+    font-size: 16px;
+    font-style: italic;
+    z-index: 1000;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .dica-container p {
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .dica-container:hover {
+    transform: scale(1.05);
+  }
+  
+  .dica-text {
+    font-size: 16px;
+    font-style: italic;
+    color: #fff;
+  }
+  
+  .dica-container::before {
+    content: "💡";
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .dica-container p {
+    color: #a3ff12;
+  }
+  
+  .dica-container {
+    background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+  }
+  

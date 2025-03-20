@@ -1,20 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';  
 import { User } from '../../shared/model/user'; 
+import { DicaService } from '../../shared/services/dica.service'; 
+import { Dica } from '../../shared/model/dica.model'; 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   isLogin: boolean = true;
   nome: string = '';
   email: string = '';
   senha: string = '';
+  dicas: Dica[] = [];  
+  dicaAleatoria: Dica | undefined;  
 
-  constructor(private router: Router, private authService: AuthService) {}  
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private dicaService: DicaService  
+  ) {}
+
+  ngOnInit(): void {
+    this.dicaService.listarDicas().subscribe(
+      (dicas) => {
+        this.dicas = dicas;
+        this.selecionarDicaAleatoria();  
+      },
+      (error) => {
+        console.error('Erro ao carregar as dicas:', error);
+      }
+    );
+  }
+
+  selecionarDicaAleatoria() {
+    const randomIndex = Math.floor(Math.random() * this.dicas.length);
+    this.dicaAleatoria = this.dicas[randomIndex];
+  }
+
   alternarModo() {
     this.isLogin = !this.isLogin;
   }
@@ -49,3 +75,4 @@ export class LoginComponent {
     }
   }
 }
+

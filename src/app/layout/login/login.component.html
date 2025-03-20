@@ -37,6 +37,11 @@
         <img src="assets/imagem.jpg" alt="Auth Image" />
       </div>
     </div>
-  </div>
+
+    <div *ngIf="dicas.length > 0" class="dica-container">
+      <p class="dica-text">{{ dicaAleatoria?.texto }}</p>
+    </div>
+</div>
+
   
   

@@ -52,13 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.atualizarGrafico();
     });
   }
+  
 
   processarDados() {
     this.ultimasTransacoes = [...this.DadosEntrada]
-      .filter(dado => dado.data)
       .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
       .slice(0, 3);
-
+  
     this.calcularReceitaDespesas();
   }
 
@@ -67,15 +67,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     const trintaDiasAtras = new Date();
     trintaDiasAtras.setDate(hoje.getDate() - 30);
 
-    this.receitaMensal = this.DadosEntrada
-      .filter(dado => dado.tipo && this.isWithinLast30Days(dado.data))
-      .reduce((total, item) => total + item.valor, 0);
-
-    this.despesasMensais = this.DadosEntrada
-      .filter(dado => !dado.tipo && this.isWithinLast30Days(dado.data))
-      .reduce((total, item) => total + item.valor, 0);
-  }
-
+      this.receitaMensal = this.DadosEntrada
+        .filter(dado => dado.tipo)
+        .reduce((total, item) => total + item.valor, 0);
+    
+      this.despesasMensais = this.DadosEntrada
+        .filter(dado => !dado.tipo)
+        .reduce((total, item) => total + item.valor, 0);
+    }
+    
   isWithinLast30Days(dataString: string): boolean {
     const data = new Date(dataString);
     return !isNaN(data.getTime()) && data >= new Date(new Date().setDate(new Date().getDate() - 30));
