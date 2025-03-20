@@ -12,7 +12,7 @@ O **FinanZen** é um projeto desenvolvido para a organização financeira pessoa
 ## Tecnologias utilizadas
 
 - **Angular**: Framework para construção da interface e gerenciamento do estado da aplicação.
-- **Firebase Firestore**: Banco de dados em tempo real utilizado para armazenar as transações dos usuários.
+- **Firebase Firestore**: Banco de dados NoSQL utilizado para armazenar as transações dos usuários.
 - **Angular Material**: Biblioteca de componentes para Angular, que proporciona uma interface moderna e responsiva.
 
 ## Estrutura do projeto
